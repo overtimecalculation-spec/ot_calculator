@@ -240,7 +240,7 @@
             <option value="1.0">Normal (1.0x)</option>
             <option value="1.5" selected>Time & Half (1.5x)</option>
             <option value="2.0">Double (2.0x)</option>
-            <option value="2.5">Triple (2.5x)</option>
+            <option value="3">Triple (3x)</option>
             <option value="custom">Custom Rate</option>
           </select>
         </div>
@@ -287,7 +287,7 @@
         if (event && event.target.id === 'multiplierPreset') {
             if (mPreset.value !== "custom") mInput.value = mPreset.value;
         } else if (event && event.target.id === 'multiplierInput') {
-            const presets = ["1.0", "1.5", "2.0", "2.5"];
+            const presets = ["1.0", "1.5", "2.0", "3"];
             mPreset.value = presets.includes(mInput.value) ? mInput.value : "custom";
         }
 
@@ -349,4 +349,5 @@
 </script>
 
 </body>
+
 </html>
