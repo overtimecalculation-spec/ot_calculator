@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Overtime Calculator</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #10b981;
+            --bg-page: #f8fafc;
+            --text-label: #64748b;
+            --border-color: #e2e8f0;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-page);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .smart-pay-tool {
+            background: var(--white);
+            width: 100%;
+            max-width: 520px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .calculator-body { padding: 32px; }
+        
+        .input-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 22px; 
+            margin-bottom: 35px; 
+        }
+
+        .input-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+        }
+
+        label { 
+            font-size: 11px; 
+            font-weight: 700; 
+            color: var(--text-label); 
+            text-transform: uppercase; 
+            letter-spacing: 0.8px; 
+        }
+
+        .field-wrapper {
+            display: flex; 
+            align-items: center;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px; 
+            height: 54px; 
+            transition: 0.3s;
+            background: var(--white);
+        }
+
+        .field-wrapper:focus-within { border-color: var(--accent); }
+        .readonly-wrapper { background-color: #f8fafc; border-style: dashed; }
+
+        input { 
+            flex: 1; 
+            padding: 0 16px; 
+            border: none; 
+            outline: none; 
+            font-size: 16px; 
+            font-weight: 600; 
+            font-family: 'Poppins', sans-serif;
+            min-width: 0;
+            background: transparent;
+        }
+
+        .display-box { 
+            flex: 1; 
+            padding: 0 16px; 
+            font-size: 16px; 
+            font-weight: 600; 
+        }
+
+        .unit-select {
+            height: 100%; 
+            background: #f1f5f9; 
+            border: none;
+            border-left: 1.5px solid var(--border-color);
+            font-family: 'Poppins', sans-serif; 
+            font-size: 11px; 
+            font-weight: 700;
+            padding: 0 10px; 
+            cursor: pointer;
+            outline: none;
+        }
+
+        .unit-select.mini { width: 80px; }
+        .unit-select.freq { width: 95px; }
+        .unit-select.freq-extra-wide { width: 180px; background: #f8fafc; font-size: 12px; }
+
+        .result-dashboard {
+            background: #f8fafc; 
+            padding: 24px; 
+            border-radius: 20px;
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .res-card {
+            background: var(--white); 
+            padding: 14px 18px; 
+            border-radius: 12px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .main-result { 
+            background: var(--primary); 
+            flex-direction: column; 
+            padding: 25px; 
+            border: none; 
+        }
+        
+        .main-result .res-label { color: rgba(255,255,255,0.6); }
+        .main-result .res-value.highlight { 
+            color: var(--accent); 
+            font-size: 30px; 
+            margin-top: 5px; 
+        }
+
+        .res-label { 
+            font-size: 11px; 
+            color: var(--text-label); 
+            font-weight: 600; 
+            text-transform: uppercase; 
+        }
+
+        .res-value { font-size: 16px; font-weight: 700; }
+        .curr-symbol { margin-right: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="smart-pay-tool">
+  <div class="calculator-body">
+    <div class="input-container">
+      
+      <div class="input-group">
+        <label>Regular Pay</label>
+        <div class="field-wrapper">
+          <input type="number" id="salary" placeholder="0">
+          <select class="unit-select mini currency-selector">
+            <option value="USD" selected>USD</option>
+            <option value="PKR">PKR</option>
+            <option value="GBP">GBP</option>
+            <option value="INR">INR</option>
+            <option value="AED">AED</option>
+            <option value="EUR">EUR</option>
+          </select>
+          <select id="payFrequency" class="unit-select freq">
+            <option value="hour">Hour</option>
+            <option value="day">Day</option>
+            <option value="week">Week</option>
+            <option value="month" selected>Month</option>
+            <option value="year">Year</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Regular Work Time</label>
+        <div class="field-wrapper">
+          <input type="number" id="workTimeValue" placeholder="0">
+          <select id="workTimeUnit" class="unit-select mini">
+            <option value="hours" selected>Hours</option>
+            <option value="days">Days</option>
+          </select>
+          <select id="workTimeFreq" class="unit-select freq">
+            <option value="day">Day</option>
+            <option value="week" selected>Week</option>
+            <option value="month">Month</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Total Regular Pay</label>
+        <div class="field-wrapper readonly-wrapper">
+          <div class="display-box"><span id="res-reg-pay-val">0.00</span></div>
+          <select class="unit-select mini currency-selector">
+            <option value="USD" selected>USD</option>
+            <option value="PKR">PKR</option>
+          </select>
+          <select id="regPayFreq" class="unit-select freq">
+            <option value="hour">Hour</option>
+            <option value="day">Day</option>
+            <option value="week">Week</option>
+            <option value="month" selected>Month</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Total Overtime Hours</label>
+        <div class="field-wrapper">
+          <input type="number" id="otValue" placeholder="0">
+          <select id="otUnit" class="unit-select mini">
+            <option value="hours" selected>Hours</option>
+            <option value="days">Days</option>
+          </select>
+          <select id="otFreq" class="unit-select freq">
+            <option value="day">Day</option>
+            <option value="week">Week</option>
+            <option value="month" selected>Month</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>OT Multiplier Rate</label>
+        <div class="field-wrapper">
+          <input type="number" id="multiplierInput" value="1.5" step="0.1">
+          <select id="multiplierPreset" class="unit-select freq-extra-wide">
+            <option value="1.0">Normal (1.0x)</option>
+            <option value="1.5" selected>Time & Half (1.5x)</option>
+            <option value="2.0">Double (2.0x)</option>
+            <option value="2.5">Triple (2.5x)</option>
+            <option value="custom">Custom Rate</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-dashboard">
+      <div class="res-card">
+        <span class="res-label">Base Hourly Rate</span>
+        <span class="res-value"><span class="curr-symbol">USD</span> <span id="res-hourly">0.00</span></span>
+      </div>
+      <div class="res-card">
+        <span class="res-label">OT Hourly Rate</span>
+        <span class="res-value"><span class="curr-symbol">USD</span> <span id="res-ot-rate">0.00</span></span>
+      </div>
+      <div class="res-card">
+        <span class="res-label">Estimated Overtime Pay</span>
+        <span class="res-value"><span class="curr-symbol">USD</span> <span id="res-total">0.00</span></span>
+      </div>
+      <div class="res-card">
+        <span class="res-label">Overtime Percentage</span>
+        <span class="res-value"><span id="res-ot-percent">0</span>%</span>
+      </div>
+      <div class="res-card main-result">
+        <span class="res-label">Total Monthly Gross Income</span>
+        <span class="res-value highlight"><span class="curr-symbol">USD</span> <span id="res-gross">0.00</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function calculateSmartPay(event) {
+        if (event && event.target.classList.contains('currency-selector')) {
+            const newCurrency = event.target.value;
+            document.querySelectorAll('.currency-selector').forEach(dropdown => {
+                dropdown.value = newCurrency;
+            });
+        }
+
+        const mInput = document.getElementById('multiplierInput');
+        const mPreset = document.getElementById('multiplierPreset');
+        
+        if (event && event.target.id === 'multiplierPreset') {
+            if (mPreset.value !== "custom") mInput.value = mPreset.value;
+        } else if (event && event.target.id === 'multiplierInput') {
+            const presets = ["1.0", "1.5", "2.0", "2.5"];
+            mPreset.value = presets.includes(mInput.value) ? mInput.value : "custom";
+        }
+
+        const currency = document.querySelector('.currency-selector').value;
+        const salary = parseFloat(document.getElementById('salary').value) || 0;
+        const payFreq = document.getElementById('payFrequency').value;
+        const workVal = parseFloat(document.getElementById('workTimeValue').value) || 0;
+        const workUnit = document.getElementById('workTimeUnit').value;
+        const workFreq = document.getElementById('workTimeFreq').value;
+        const otVal = parseFloat(document.getElementById('otValue').value) || 0;
+        const otUnit = document.getElementById('otUnit').value;
+        const otFreq = document.getElementById('otFreq').value;
+        const regShowFreq = document.getElementById('regPayFreq').value;
+        const multiplier = parseFloat(mInput.value) || 1.0;
+
+        let regHrsEntry = (workUnit === "days") ? workVal * 8 : workVal;
+        let monthlyRegHrs = (workFreq === "day") ? regHrsEntry * 21.75 : 
+                           (workFreq === "week") ? regHrsEntry * 4.33 : 
+                           regHrsEntry;
+
+        let otHrsEntry = (otUnit === "days") ? otVal * 8 : otVal;
+        let monthlyOTHrs = (otFreq === "day") ? otHrsEntry * 21.75 : 
+                          (otFreq === "week") ? otHrsEntry * 4.33 : 
+                          (otFreq === "month" ? otHrsEntry : 0);
+
+        let hrRate = 0;
+        if (monthlyRegHrs > 0) {
+            hrRate = (payFreq === "hour") ? salary : 
+                     (payFreq === "day") ? salary / 8 : 
+                     (payFreq === "week") ? salary / (monthlyRegHrs / 4.33) : 
+                     (payFreq === "month") ? salary / monthlyRegHrs : 
+                     salary / (monthlyRegHrs * 12);
+        }
+
+        let totalReg = (regShowFreq === "hour") ? hrRate : 
+                       (regShowFreq === "day") ? hrRate * 8 : 
+                       (regShowFreq === "week") ? hrRate * (monthlyRegHrs / 4.33) : 
+                       hrRate * monthlyRegHrs;
+
+        const otRate = hrRate * multiplier;
+        const monthlyOTPay = otRate * monthlyOTHrs;
+        const totalGrossMonthly = (hrRate * monthlyRegHrs) + monthlyOTPay;
+        const otPercentage = totalGrossMonthly > 0 ? (monthlyOTPay / totalGrossMonthly) * 100 : 0;
+
+        document.querySelectorAll('.curr-symbol').forEach(el => el.innerText = currency);
+        document.getElementById('res-reg-pay-val').innerText = totalReg.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('res-hourly').innerText = hrRate.toFixed(2);
+        document.getElementById('res-ot-rate').innerText = otRate.toFixed(2);
+        document.getElementById('res-total').innerText = monthlyOTPay.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('res-ot-percent').innerText = otPercentage.toFixed(1);
+        document.getElementById('res-gross').innerText = totalGrossMonthly.toLocaleString(undefined, {minimumFractionDigits: 2});
+    }
+
+    document.querySelectorAll('input, select').forEach(el => {
+        el.addEventListener('input', calculateSmartPay);
+    });
+
+    calculateSmartPay();
+</script>
+
+</body>
+</html>
