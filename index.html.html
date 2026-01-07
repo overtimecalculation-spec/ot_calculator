@@ -60,33 +60,40 @@
             text-transform: uppercase; 
             letter-spacing: 0.8px; 
         }
-
         .field-wrapper {
-            display: flex; 
-            align-items: center;
-            border: 1.5px solid var(--border-color);
-            border-radius: 12px; 
-            height: 54px; 
-            transition: 0.3s;
-            background: var(--white);
-            box-sizing: border-box; 
-            overflow: visible;
-        }
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    height: 54px;
+    transition: 0.3s;
+    background: var(--white);
+    /* NEW: This forces everything to stay inside the lines */
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    overflow: hidden; /* We'll use a different trick for the focus */
+}
 
-        .field-wrapper:focus-within { border-color: var(--accent); }
-        .readonly-wrapper { background-color: #f8fafc; border-style: dashed; }
+.field-wrapper:focus-within {
+    /* Use 'inset' shadow so the green border grows INWARD and can't be cut off */
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--accent); 
+}
 
-        input { 
-            flex: 1; 
-            padding: 0 16px; 
-            border: none; 
-            outline: none; 
-            font-size: 16px; 
-            font-weight: 600; 
-            font-family: 'Poppins', sans-serif;
-            min-width: 0;
-            background: transparent;
-        }
+.field-wrapper input {
+    border: none;
+    outline: none;
+    padding: 0 15px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--primary);
+    background: transparent;
+    /* NEW: This makes sure the input doesn't push against the right edge */
+    flex: 1;
+    min-width: 0; 
+    width: 100%;
+}
 
         .display-box { 
             flex: 1; 
@@ -353,6 +360,7 @@
 </body>
 
 </html>
+
 
 
 
