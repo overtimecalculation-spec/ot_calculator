@@ -7,162 +7,147 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary: #0f172a;
-            --accent: #10b981;
-            --bg-page: #f8fafc;
-            --text-label: #64748b;
-            --border-color: #e2e8f0;
-            --white: #ffffff;
-        }
+<style>
+    :root {
+        --primary: #0f172a;
+        --accent: #10b981;
+        --bg-page: #f8fafc;
+        --text-label: #64748b;
+        --border-color: #e2e8f0;
+        --white: #ffffff;
+    }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-page);
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            color: var(--primary);
-            margin: 0;
-        }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-page);
+        display: flex;
+        justify-content: center;
+        padding: 10px; /* Reduced padding for mobile */
+        color: var(--primary);
+        margin: 0;
+    }
 
-        .smart-pay-tool {
-            background: var(--white);
-            width: 100%;
-            max-width: 520px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            margin-top: 20px;
-        }
+    .smart-pay-tool {
+        background: var(--white);
+        width: 100%;
+        max-width: 520px;
+        border-radius: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        margin-top: 10px;
+        box-sizing: border-box; /* Fixes the border cutting off */
+    }
 
-        .calculator-body { padding: 32px; }
-        
-        .input-container { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 22px; 
-            margin-bottom: 35px; 
-        }
+    .calculator-body { padding: 20px; } /* Smaller padding for mobile screens */
+    
+    .input-container { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 18px; 
+        margin-bottom: 25px; 
+    }
 
-        .input-group { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 8px; 
-        }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
 
-        label { 
-            font-size: 11px; 
-            font-weight: 700; 
-            color: var(--text-label); 
-            text-transform: uppercase; 
-            letter-spacing: 0.8px; 
-        }
-        .field-wrapper {
-    display: flex;
-    align-items: center;
-    border: 1.5px solid var(--border-color);
-    border-radius: 12px;
-    height: 54px;
-    transition: 0.3s;
-    background: var(--white);
-    /* NEW: This forces everything to stay inside the lines */
-    box-sizing: border-box;
-    width: 100%;
-    position: relative;
-    overflow: hidden; /* We'll use a different trick for the focus */
-}
+    label { 
+        font-size: 10px; 
+        font-weight: 700; 
+        color: var(--text-label); 
+        text-transform: uppercase; 
+        letter-spacing: 0.8px; 
+    }
 
-.field-wrapper:focus-within {
-    /* Use 'inset' shadow so the green border grows INWARD and can't be cut off */
-    border-color: var(--accent);
-    box-shadow: inset 0 0 0 1px var(--accent); 
-}
+    .field-wrapper {
+        display: flex; 
+        align-items: center;
+        border: 1.5px solid var(--border-color);
+        border-radius: 12px; 
+        min-height: 54px; /* Flexible height */
+        transition: 0.3s;
+        background: var(--white);
+        overflow: hidden; /* Keeps dropdowns inside the rounded corners */
+        box-sizing: border-box;
+    }
 
-.field-wrapper input {
-    border: none;
-    outline: none;
-    padding: 0 15px;
-    font-size: 16px;
-    font-family: inherit;
-    color: var(--primary);
-    background: transparent;
-    /* NEW: This makes sure the input doesn't push against the right edge */
-    flex: 1;
-    min-width: 0; 
-    width: 100%;
-}
+    /* Fix for the green padding issue */
+    .field-wrapper:focus-within { 
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent); 
+    }
 
-        .display-box { 
-            flex: 1; 
-            padding: 0 16px; 
-            font-size: 16px; 
-            font-weight: 600; 
-        }
+    input { 
+        flex: 1; 
+        padding: 0 12px; 
+        border: none; 
+        outline: none; 
+        font-size: 15px; 
+        font-weight: 600; 
+        width: 100%;
+        min-width: 0; /* Prevents input from pushing out the side */
+    }
 
-        .unit-select {
-            height: 100%; 
-            background: #f1f5f9; 
-            border: none;
-            border-left: 1.5px solid var(--border-color);
-            font-family: 'Poppins', sans-serif; 
-            font-size: 11px; 
-            font-weight: 700;
-            padding: 0 10px; 
-            cursor: pointer;
-            outline: none;
-        }
+    .unit-select {
+        height: 54px; 
+        background: #f1f5f9; 
+        border: none;
+        border-left: 1.5px solid var(--border-color);
+        font-family: 'Poppins', sans-serif; 
+        font-size: 11px; 
+        font-weight: 700;
+        padding: 0 8px; 
+        cursor: pointer;
+        outline: none;
+    }
 
-        .unit-select.mini { width: 80px; }
-        .unit-select.freq { width: 95px; }
-        .unit-select.freq-extra-wide { width: 180px; background: #f8fafc; font-size: 12px; }
+    /* Mobile adjustments for dropdown widths */
+    .unit-select.mini { width: 70px; }
+    .unit-select.freq { width: 85px; }
+    .unit-select.freq-extra-wide { width: 140px; font-size: 11px; }
 
-        .result-dashboard {
-            background: #f8fafc; 
-            padding: 24px; 
-            border-radius: 20px;
-            display: flex; 
-            flex-direction: column; 
-            gap: 12px;
-            border: 1px solid var(--border-color);
-        }
+    .result-dashboard {
+        background: #f8fafc; 
+        padding: 15px; 
+        border-radius: 20px;
+        display: flex; 
+        flex-direction: column; 
+        gap: 10px;
+        border: 1px solid var(--border-color);
+    }
 
-        .res-card {
-            background: var(--white); 
-            padding: 14px 18px; 
-            border-radius: 12px;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            border: 1px solid var(--border-color);
-        }
+    .res-card {
+        background: var(--white); 
+        padding: 12px; 
+        border-radius: 12px;
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center;
+        border: 1px solid var(--border-color);
+        gap: 10px;
+    }
 
-        .main-result { 
-            background: var(--primary); 
-            flex-direction: column; 
-            padding: 25px; 
-            border: none; 
-        }
-        
-        .main-result .res-label { color: rgba(255,255,255,0.6); }
-        .main-result .res-value.highlight { 
-            color: var(--accent); 
-            font-size: 30px; 
-            margin-top: 5px; 
-        }
+    .main-result { 
+        background: var(--primary); 
+        flex-direction: column; 
+        padding: 20px; 
+        border: none; 
+        text-align: center;
+    }
+    
+    .main-result .res-value.highlight { 
+        color: var(--accent); 
+        font-size: 24px; /* Smaller font for mobile */
+        margin-top: 5px; 
+    }
 
-        .res-label { 
-            font-size: 11px; 
-            color: var(--text-label); 
-            font-weight: 600; 
-            text-transform: uppercase; 
-        }
+    .res-label { font-size: 10px; }
+    .res-value { font-size: 14px; text-align: right; }
 
-        .res-value { font-size: 16px; font-weight: 700; }
-        .curr-symbol { margin-right: 4px; }
-    </style>
+    /* Special Media Query for very small phones */
+    @media (max-width: 400px) {
+        .unit-select.freq-extra-wide { width: 100px; }
+        .calculator-body { padding: 15px; }
+    }
+</style>
 </head>
 <body>
 
@@ -360,6 +345,7 @@
 </body>
 
 </html>
+
 
 
 
