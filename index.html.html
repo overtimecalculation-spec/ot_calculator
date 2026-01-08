@@ -21,131 +21,122 @@
         background-color: var(--bg-page);
         display: flex;
         justify-content: center;
-        padding: 10px; /* Reduced padding for mobile */
-        color: var(--primary);
+        padding: 10px;
         margin: 0;
     }
 
     .smart-pay-tool {
         background: var(--white);
         width: 100%;
-        max-width: 520px;
+        max-width: 500px;
         border-radius: 24px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         border: 1px solid var(--border-color);
-        margin-top: 10px;
-        box-sizing: border-box; /* Fixes the border cutting off */
-    }
-
-    .calculator-body { padding: 20px; } /* Smaller padding for mobile screens */
-    
-    .input-container { 
-        display: flex; 
-        flex-direction: column; 
-        gap: 18px; 
-        margin-bottom: 25px; 
-    }
-
-    .input-group { display: flex; flex-direction: column; gap: 6px; }
-
-    label { 
-        font-size: 10px; 
-        font-weight: 700; 
-        color: var(--text-label); 
-        text-transform: uppercase; 
-        letter-spacing: 0.8px; 
-    }
-
-    .field-wrapper {
-        display: flex; 
-        align-items: center;
-        border: 1.5px solid var(--border-color);
-        border-radius: 12px; 
-        min-height: 54px; /* Flexible height */
-        transition: 0.3s;
-        background: var(--white);
-        overflow: hidden; /* Keeps dropdowns inside the rounded corners */
         box-sizing: border-box;
     }
 
-    /* Fix for the green padding issue */
-    .field-wrapper:focus-within { 
-        border-color: var(--accent);
-        box-shadow: 0 0 0 1px var(--accent); 
+    .calculator-body { padding: 20px; }
+
+    .input-group { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 8px; 
+        margin-bottom: 20px;
     }
 
-    input { 
-        flex: 1; 
-        padding: 0 12px; 
-        border: none; 
-        outline: none; 
-        font-size: 15px; 
-        font-weight: 600; 
-        width: 100%;
-        min-width: 0; /* Prevents input from pushing out the side */
+    label { 
+        font-size: 11px; 
+        font-weight: 700; 
+        color: var(--text-label); 
+        text-transform: uppercase; 
+    }
+
+    /* THE MAGIC FIX FOR OVERLAPPING */
+    .field-wrapper {
+        display: flex;
+        flex-wrap: wrap; /* Allows items to jump to next line if squashed */
+        border: 1.5px solid var(--border-color);
+        border-radius: 12px;
+        background: var(--white);
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+    .field-wrapper:focus-within {
+        border-color: var(--accent);
+        box-shadow: inset 0 0 0 1px var(--accent);
+    }
+
+    input {
+        flex: 1;
+        min-width: 120px; /* Ensures the number part doesn't disappear */
+        padding: 12px 15px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: inherit;
     }
 
     .unit-select {
-        height: 54px; 
-        background: #f1f5f9; 
         border: none;
+        background: #f1f5f9;
         border-left: 1.5px solid var(--border-color);
-        font-family: 'Poppins', sans-serif; 
-        font-size: 11px; 
-        font-weight: 700;
-        padding: 0 8px; 
+        padding: 0 12px;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
         cursor: pointer;
-        outline: none;
+        height: 50px;
     }
 
-    /* Mobile adjustments for dropdown widths */
-    .unit-select.mini { width: 70px; }
-    .unit-select.freq { width: 85px; }
-    .unit-select.freq-extra-wide { width: 140px; font-size: 11px; }
+    /* Fix for mobile: stack dropdowns if needed */
+    @media (max-width: 480px) {
+        .unit-select {
+            flex: 1;
+            border-left: none;
+            border-top: 1.5px solid var(--border-color);
+            height: 45px;
+            text-align: center;
+        }
+    }
 
     .result-dashboard {
-        background: #f8fafc; 
-        padding: 15px; 
+        background: #f8fafc;
+        padding: 20px;
         border-radius: 20px;
-        display: flex; 
-        flex-direction: column; 
+        display: flex;
+        flex-direction: column;
         gap: 10px;
         border: 1px solid var(--border-color);
     }
 
     .res-card {
-        background: var(--white); 
-        padding: 12px; 
+        background: var(--white);
+        padding: 12px 15px;
         border-radius: 12px;
-        display: flex; 
-        justify-content: space-between; 
+        display: flex;
+        justify-content: space-between;
         align-items: center;
         border: 1px solid var(--border-color);
-        gap: 10px;
     }
 
-    .main-result { 
-        background: var(--primary); 
-        flex-direction: column; 
-        padding: 20px; 
-        border: none; 
+    .main-result {
+        background: var(--primary);
+        flex-direction: column;
+        padding: 20px;
         text-align: center;
-    }
-    
-    .main-result .res-value.highlight { 
-        color: var(--accent); 
-        font-size: 24px; /* Smaller font for mobile */
-        margin-top: 5px; 
+        color: white;
     }
 
-    .res-label { font-size: 10px; }
-    .res-value { font-size: 14px; text-align: right; }
-
-    /* Special Media Query for very small phones */
-    @media (max-width: 400px) {
-        .unit-select.freq-extra-wide { width: 100px; }
-        .calculator-body { padding: 15px; }
+    .main-result .res-value.highlight {
+        color: var(--accent);
+        font-size: 28px;
+        display: block;
     }
+
+    .res-label { font-size: 10px; color: var(--text-label); font-weight: 600; }
+    .res-value { font-size: 15px; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -344,6 +335,7 @@
 </body>
 
 </html>
+
 
 
 
