@@ -116,7 +116,12 @@
             text-align: center;
         }
 
-        /* Result Styles */
+        /* Fixed Width for Currency to show only Code when closed */
+        .currency-select {
+            min-width: 65px;
+            max-width: 75px;
+        }
+
         .results-box {
             background: #1e293b;
             color: white;
@@ -144,9 +149,8 @@
         .total-value { font-size: 30px; font-weight: 700; color: var(--accent-green); margin-top: 5px; }
 
         @media (max-width: 480px) {
-            .unit-select { min-width: 75px; padding: 0 5px; font-size: 11px; }
+            .unit-select { min-width: 70px; padding: 0 5px; font-size: 11px; }
             input { font-size: 15px; padding: 10px; }
-            .currency-select { max-width: 100px; }
         }
     </style>
 </head>
@@ -273,16 +277,15 @@
         const mult = parseFloat(document.getElementById('multInput').value) || 1.5;
         const currency = document.getElementById('curr').value;
 
-        // Sync all currency displays
+        // Sync short code to all displays
         document.querySelectorAll('.curr-txt').forEach(el => el.innerText = currency);
         document.querySelectorAll('.curr-sync option').forEach(el => el.text = currency);
 
-        // Assumptions for conversions
+        // Standard conversions
         let hoursPerDay = 8; 
         let daysPerMonth = 22;
         let weeksPerMonth = 4.33;
 
-        // Convert work time to hours per month
         let inputWorkHours = (workUnit === "days") ? workVal * hoursPerDay : workVal;
         
         let monthlyRegHrs;
@@ -290,13 +293,11 @@
         else if (workFreq === "week") monthlyRegHrs = inputWorkHours * weeksPerMonth;
         else monthlyRegHrs = inputWorkHours;
 
-        // Convert OT time to hours per month
         let monthlyOTHrs;
         if (otFreq === "day") monthlyOTHrs = otVal * daysPerMonth;
         else if (otFreq === "week") monthlyOTHrs = otVal * weeksPerMonth;
         else monthlyOTHrs = otVal;
 
-        // Calculate Hourly Rate
         let hourly = 0;
         if (monthlyRegHrs > 0) {
             if(payFreq === "hour") hourly = salary;
