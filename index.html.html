@@ -101,7 +101,6 @@
             min-width: 0;
         }
 
-        /* Fixed dropdowns - removed the border-left divider line */
         .unit-select {
             border: none;
             background: #f8fafc;
@@ -113,11 +112,10 @@
             height: 52px;
             outline: none;
             color: var(--primary-blue);
-            min-width: 80px;
+            min-width: 85px;
             text-align: center;
         }
 
-        /* Result Styles */
         .results-box {
             background: #1e293b;
             color: white;
@@ -145,7 +143,7 @@
         .total-value { font-size: 30px; font-weight: 700; color: var(--accent-green); margin-top: 5px; }
 
         @media (max-width: 480px) {
-            .unit-select { min-width: 65px; padding: 0 5px; font-size: 11px; }
+            .unit-select { min-width: 75px; padding: 0 5px; font-size: 11px; }
             input { font-size: 15px; padding: 10px; }
         }
     </style>
@@ -163,7 +161,12 @@
             <div class="field-group">
                 <input type="number" id="salary" placeholder="0">
                 <select id="curr" class="unit-select"><option>USD</option><option>PKR</option><option>GBP</option><option>EUR</option></select>
-                <select id="payFreq" class="unit-select"><option value="month" selected>Month</option><option value="hour">Hour</option><option value="year">Year</option></select>
+                <select id="payFreq" class="unit-select">
+                    <option value="hour">Hour</option>
+                    <option value="day">Day</option>
+                    <option value="week">Week</option>
+                    <option value="month" selected>Month</option>
+                </select>
             </div>
         </div>
 
@@ -171,8 +174,12 @@
             <label>Regular Work Time</label>
             <div class="field-group">
                 <input type="number" id="workVal" placeholder="40">
-                <select class="unit-select" disabled><option>Hours</option></select>
-                <select id="workFreq" class="unit-select"><option value="week" selected>Week</option><option value="month">Month</option></select>
+                <select id="workUnit" class="unit-select"><option value="hours">Hours</option><option value="days">Days</option></select>
+                <select id="workFreq" class="unit-select">
+                    <option value="day">Day</option>
+                    <option value="week" selected>Week</option>
+                    <option value="month">Month</option>
+                </select>
             </div>
         </div>
 
@@ -227,6 +234,7 @@
         const salary = parseFloat(document.getElementById('salary').value) || 0;
         const payFreq = document.getElementById('payFreq').value;
         const workVal = parseFloat(document.getElementById('workVal').value) || 0;
+        const workUnit = document.getElementById('workUnit').value;
         const workFreq = document.getElementById('workFreq').value;
         const otVal = parseFloat(document.getElementById('otVal').value) || 0;
         const otFreq = document.getElementById('otFreq').value;
@@ -238,14 +246,24 @@
             if(el.tagName === 'OPTION') el.text = currency;
         });
 
-        let monthlyRegHrs = (workFreq === "week") ? workVal * 4.33 : workVal;
+        // Convert work time to hours per month
+        let hoursPerDay = 8; // Default assumption for days to hours conversion
+        let inputWorkHours = (workUnit === "days") ? workVal * hoursPerDay : workVal;
+        
+        let monthlyRegHrs;
+        if (workFreq === "day") monthlyRegHrs = inputWorkHours * 22;
+        else if (workFreq === "week") monthlyRegHrs = inputWorkHours * 4.33;
+        else monthlyRegHrs = inputWorkHours;
+
         let monthlyOTHrs = (otFreq === "week") ? otVal * 4.33 : otVal;
 
+        // Calculate Hourly Rate
         let hourly = 0;
         if (monthlyRegHrs > 0) {
             if(payFreq === "hour") hourly = salary;
+            else if(payFreq === "day") hourly = salary / (inputWorkHours / (workFreq === "day" ? 1 : (workFreq === "week" ? 5 : 22)));
+            else if(payFreq === "week") hourly = salary / (monthlyRegHrs / 4.33);
             else if(payFreq === "month") hourly = salary / monthlyRegHrs;
-            else hourly = salary / (monthlyRegHrs * 12);
         }
 
         const regTotal = hourly * monthlyRegHrs;
