@@ -114,12 +114,16 @@
             color: var(--primary-blue);
             min-width: 85px;
             text-align: center;
+            /* Yahan se wo dash wala masla hal hoga */
+            text-overflow: clip; 
+            white-space: nowrap;
         }
 
-        /* Fixed Width for Currency to show only Code when closed */
+        /* Currency dropdown width adjusted to show only Code properly */
         .currency-select {
-            min-width: 65px;
-            max-width: 75px;
+            min-width: 60px;
+            width: auto;
+            max-width: none; 
         }
 
         .results-box {
@@ -150,6 +154,7 @@
 
         @media (max-width: 480px) {
             .unit-select { min-width: 70px; padding: 0 5px; font-size: 11px; }
+            .currency-select { min-width: 55px; }
             input { font-size: 15px; padding: 10px; }
         }
     </style>
@@ -167,26 +172,26 @@
             <div class="field-group">
                 <input type="number" id="salary" placeholder="0">
                 <select id="curr" class="unit-select currency-select">
-                    <option value="USD" selected>USD - US Dollar</option>
-                    <option value="GBP">GBP - British Pound</option>
-                    <option value="EUR">EUR - Euro</option>
-                    <option value="AUD">AUD - Australian Dollar</option>
-                    <option value="CAD">CAD - Canadian Dollar</option>
-                    <option value="CHF">CHF - Swiss Franc</option>
-                    <option value="CNY">CNY - Chinese Yuan</option>
-                    <option value="JPY">JPY - Japanese Yen</option>
-                    <option value="PLN">PLN - Polish Zloty</option>
-                    <option value="RON">RON - Romanian Leu</option>
-                    <option value="CZK">CZK - Czech Koruna</option>
-                    <option value="HKD">HKD - Hong Kong Dollar</option>
-                    <option value="HUF">HUF - Hungarian Forint</option>
-                    <option value="PKR">PKR - Pakistani Rupee</option>
-                    <option value="INR">INR - Indian Rupee</option>
-                    <option value="SAR">SAR - Saudi Riyal</option>
-                    <option value="SEK">SEK - Swedish Krona</option>
-                    <option value="THB">THB - Thai Baht</option>
-                    <option value="TRY">TRY - Turkish Lira</option>
-                    <option value="IRR">IRR - Iranian Rial</option>
+                    <option value="USD" selected>USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="EUR">EUR</option>
+                    <option value="AUD">AUD</option>
+                    <option value="CAD">CAD</option>
+                    <option value="CHF">CHF</option>
+                    <option value="CNY">CNY</option>
+                    <option value="JPY">JPY</option>
+                    <option value="PLN">PLN</option>
+                    <option value="RON">RON</option>
+                    <option value="CZK">CZK</option>
+                    <option value="HKD">HKD</option>
+                    <option value="HUF">HUF</option>
+                    <option value="PKR">PKR</option>
+                    <option value="INR">INR</option>
+                    <option value="SAR">SAR</option>
+                    <option value="SEK">SEK</option>
+                    <option value="THB">THB</option>
+                    <option value="TRY">TRY</option>
+                    <option value="IRR">IRR</option>
                 </select>
                 <select id="payFreq" class="unit-select">
                     <option value="hour">Hour</option>
@@ -277,11 +282,9 @@
         const mult = parseFloat(document.getElementById('multInput').value) || 1.5;
         const currency = document.getElementById('curr').value;
 
-        // Sync short code to all displays
         document.querySelectorAll('.curr-txt').forEach(el => el.innerText = currency);
         document.querySelectorAll('.curr-sync option').forEach(el => el.text = currency);
 
-        // Standard conversions
         let hoursPerDay = 8; 
         let daysPerMonth = 22;
         let weeksPerMonth = 4.33;
