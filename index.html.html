@@ -7,17 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #3d5afe;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
+            --brand-blue: #0056b3; /* Professional Deep Blue */
+            --brand-green: #10b981; /* Success Green */
+            --text-main: #1e293b;
+            --text-sub: #64748b;
             --border-color: #cbd5e1;
-            --white: #ffffff;
-            --accent-green: #10b981;
+            --field-bg: #ffffff;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            /* Background ko transparent kar diya taaki page color show ho */
             background-color: transparent;
             margin: 0;
             padding: 10px;
@@ -26,138 +25,142 @@
         }
 
         .omni-container {
-            /* Container ka apna background bhi khatam kar diya */
             background: transparent;
             width: 100%;
             max-width: 550px;
-            border-radius: 12px;
-            /* Shadow ko halka rakha hai taaki blend ho jaye */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 16px;
             border: 1px solid var(--border-color);
-            margin-top: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             overflow: hidden;
+            margin-top: 10px;
         }
 
         .section-header {
-            /* Header ko halka sa alag shade diya hai takay headers wazay hon */
-            background: rgba(248, 250, 252, 0.6);
-            padding: 14px 20px;
+            background: rgba(248, 250, 252, 0.8);
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .section-header h2 {
-            font-size: 13px;
+            font-size: 14px;
             margin: 0;
-            color: var(--text-dark);
+            color: var(--brand-blue);
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 1px;
         }
 
         .section-content {
-            padding: 20px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 20px;
         }
 
         .input-row {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
         .input-row label {
             font-size: 13px;
-            color: var(--text-dark);
+            color: var(--text-main);
             font-weight: 600;
         }
 
         .field-group {
             display: flex;
             align-items: center;
-            border: 1.5px solid var(--border-color);
-            border-radius: 8px;
-            background: white; /* Input box ko white rakha hai for clarity */
-            min-height: 52px;
-            transition: 0.3s;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--field-bg);
+            min-height: 54px;
+            transition: all 0.3s ease;
             overflow: hidden;
         }
 
         .field-group:focus-within {
-            border-color: var(--primary-blue);
-            box-shadow: inset 0 0 0 1px var(--primary-blue);
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
         }
 
         input {
             flex: 1;
-            padding: 12px 15px;
+            padding: 12px 16px;
             border: none;
             outline: none;
             font-size: 16px;
             font-weight: 600;
-            font-family: inherit;
+            color: var(--text-main);
             background: transparent;
-            min-width: 0;
         }
 
         .unit-select {
             border: none;
-            background: #f8fafc;
+            background: #f1f5f9;
             padding: 0 12px;
             font-family: inherit;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            height: 52px;
+            height: 54px;
             outline: none;
-            color: var(--primary-blue);
-            min-width: 85px;
+            color: var(--brand-blue);
+            min-width: 70px;
             text-align: center;
-            text-overflow: clip; 
-            white-space: nowrap;
         }
 
-        .currency-select {
-            min-width: 60px;
-            width: auto;
-            max-width: none; 
-        }
-
+        /* Results Box - Modern Gradient Dark */
         .results-box {
-            /* Result area ko solid rakha hai taaki values saaf nazar ayen */
             background: #1e293b;
             color: white;
-            padding: 25px;
+            padding: 30px;
+            border-radius: 0 0 16px 16px;
         }
 
         .res-line {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 13px;
+            margin-bottom: 12px;
+            font-size: 14px;
             color: #94a3b8;
         }
 
-        .res-line span:last-child { color: white; font-weight: 600; }
+        .res-line span:last-child { 
+            color: white; 
+            font-weight: 600; 
+        }
 
         .total-line {
-            border-top: 1px solid #334155;
-            margin-top: 15px;
-            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 20px;
+            padding-top: 20px;
             text-align: center;
         }
 
-        .total-label { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
-        .total-value { font-size: 30px; font-weight: 700; color: var(--accent-green); margin-top: 5px; }
+        .total-label { 
+            font-size: 12px; 
+            text-transform: uppercase; 
+            color: #94a3b8; 
+            font-weight: 700; 
+            letter-spacing: 1px;
+        }
+
+        .total-value { 
+            font-size: 34px; 
+            font-weight: 800; 
+            color: var(--brand-green); 
+            margin-top: 8px; 
+            text-shadow: 0 2px 10px rgba(16, 185, 129, 0.2);
+        }
 
         @media (max-width: 480px) {
-            .unit-select { min-width: 70px; padding: 0 5px; font-size: 11px; }
-            .currency-select { min-width: 55px; }
-            input { font-size: 15px; padding: 10px; }
+            .unit-select { min-width: 60px; font-size: 11px; }
+            .total-value { font-size: 28px; }
         }
     </style>
 </head>
@@ -165,15 +168,15 @@
 
 <div class="omni-container">
     <div class="section-header">
-        <span style="color: var(--primary-blue); font-size: 10px;">▼</span>
+        <span style="color: var(--brand-blue); font-size: 12px;">⬤</span>
         <h2>Regular Pay Details</h2>
     </div>
     <div class="section-content">
         <div class="input-row">
-            <label>Regular Pay</label>
+            <label>Salary / Regular Rate</label>
             <div class="field-group">
                 <input type="number" id="salary" placeholder="0">
-                <select id="curr" class="unit-select currency-select">
+                <select id="curr" class="unit-select">
                     <option value="USD" selected>USD</option>
                     <option value="GBP">GBP</option>
                     <option value="EUR">EUR</option>
@@ -205,10 +208,10 @@
         </div>
 
         <div class="input-row">
-            <label>Regular Work Time</label>
+            <label>Working Hours</label>
             <div class="field-group">
                 <input type="number" id="workVal" placeholder="40">
-                <select id="workUnit" class="unit-select"><option value="hours">Hours</option><option value="days">Days</option></select>
+                <select id="workUnit" class="unit-select"><option value="hours">Hrs</option><option value="days">Days</option></select>
                 <select id="workFreq" class="unit-select">
                     <option value="day">Day</option>
                     <option value="week" selected>Week</option>
@@ -216,30 +219,21 @@
                 </select>
             </div>
         </div>
-
-        <div class="input-row">
-            <label>Total Regular Pay (Calculated)</label>
-            <div class="field-group" style="background: rgba(248, 250, 252, 0.5);">
-                <input type="text" id="res-reg-display" readonly value="0.00" style="color: var(--text-light);">
-                <select class="unit-select curr-sync" disabled><option>USD</option></select>
-                <select class="unit-select" disabled><option>Month</option></select>
-            </div>
-        </div>
     </div>
 
     <div class="section-header">
-        <span style="color: var(--primary-blue); font-size: 10px;">▼</span>
-        <h2>Overtime Details</h2>
+        <span style="color: var(--brand-blue); font-size: 12px;">⬤</span>
+        <h2>Overtime Settings</h2>
     </div>
     <div class="section-content">
         <div class="input-row">
-            <label>Overtime Multiplier (e.g. 1.5x)</label>
+            <label>OT Multiplier</label>
             <div class="field-group">
                 <input type="number" id="multInput" value="1.5" step="0.1">
                 <select id="multPreset" class="unit-select">
-                    <option value="1.5">1.5x Rate</option>
-                    <option value="2.0">2.0x Rate</option>
-                    <option value="3.0">3.0x Rate</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2.0">2.0x</option>
+                    <option value="3.0">3.0x</option>
                     <option value="custom">Custom</option>
                 </select>
             </div>
@@ -249,7 +243,7 @@
             <label>Overtime Hours Worked</label>
             <div class="field-group">
                 <input type="number" id="otVal" placeholder="0">
-                <select class="unit-select" disabled><option>Hours</option></select>
+                <select class="unit-select" disabled><option>Hrs</option></select>
                 <select id="otFreq" class="unit-select">
                     <option value="day">Day</option>
                     <option value="week">Week</option>
@@ -260,7 +254,7 @@
     </div>
 
     <div class="results-box">
-        <div class="res-line"><span>Base Hourly Rate</span><span><span class="curr-txt">USD</span> <span id="out-hourly">0.00</span></span></div>
+        <div class="res-line"><span>Regular Hourly Rate</span><span><span class="curr-txt">USD</span> <span id="out-hourly">0.00</span></span></div>
         <div class="res-line"><span>OT Hourly Rate</span><span><span class="curr-txt">USD</span> <span id="out-ot-rate">0.00</span></span></div>
         <div class="res-line"><span>Total OT Pay</span><span><span class="curr-txt">USD</span> <span id="out-ot-pay">0.00</span></span></div>
         <div class="res-line"><span>OT Percentage</span><span><span id="out-percent">0</span>%</span></div>
@@ -285,7 +279,6 @@
         const currency = document.getElementById('curr').value;
 
         document.querySelectorAll('.curr-txt').forEach(el => el.innerText = currency);
-        document.querySelectorAll('.curr-sync option').forEach(el => el.text = currency);
 
         let hoursPerDay = 8; 
         let daysPerMonth = 22;
@@ -317,9 +310,8 @@
         const gross = regTotal + otTotal;
         const percent = gross > 0 ? (otTotal / gross) * 100 : 0;
 
-        document.getElementById('res-reg-display').value = regTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
-        document.getElementById('out-hourly').innerText = hourly.toFixed(2);
-        document.getElementById('out-ot-rate').innerText = otRate.toFixed(2);
+        document.getElementById('out-hourly').innerText = hourly.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('out-ot-rate').innerText = otRate.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('out-ot-pay').innerText = otTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('out-percent').innerText = percent.toFixed(1);
         document.getElementById('out-gross').innerText = gross.toLocaleString(undefined, {minimumFractionDigits: 2});
