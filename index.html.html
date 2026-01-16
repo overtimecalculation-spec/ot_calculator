@@ -7,10 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-blue: #0056b3; /* Professional Deep Blue */
-            --brand-green: #10b981; /* Success Green */
+            --brand-blue: #0056b3;
+            --brand-green: #10b981;
             --text-main: #1e293b;
-            --text-sub: #64748b;
             --border-color: #cbd5e1;
             --field-bg: #ffffff;
         }
@@ -19,7 +18,7 @@
             font-family: 'Poppins', sans-serif;
             background-color: transparent;
             margin: 0;
-            padding: 10px;
+            padding: 5px;
             display: flex;
             justify-content: center;
         }
@@ -28,42 +27,42 @@
             background: transparent;
             width: 100%;
             max-width: 550px;
-            border-radius: 16px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             overflow: hidden;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .section-header {
-            background: rgba(248, 250, 252, 0.8);
-            padding: 16px 20px;
+            background: rgba(248, 250, 252, 0.9);
+            padding: 12px 18px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .section-header h2 {
-            font-size: 14px;
+            font-size: 13px;
             margin: 0;
             color: var(--brand-blue);
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .section-content {
-            padding: 24px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         .input-row {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .input-row label {
@@ -72,13 +71,14 @@
             font-weight: 600;
         }
 
+        /* --- DESKTOP VIEW (Default) --- */
         .field-group {
             display: flex;
-            align-items: center;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
+            align-items: stretch;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
             background: var(--field-bg);
-            min-height: 54px;
+            min-height: 48px;
             transition: all 0.3s ease;
             overflow: hidden;
         }
@@ -90,7 +90,7 @@
 
         input {
             flex: 1;
-            padding: 12px 16px;
+            padding: 10px 15px;
             border: none;
             outline: none;
             font-size: 16px;
@@ -101,74 +101,77 @@
 
         .unit-select {
             border: none;
-            background: #f1f5f9;
-            padding: 0 12px;
+            border-left: 1px solid var(--border-color);
+            background: #f8fafc;
+            padding: 0 10px;
             font-family: inherit;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
-            height: 54px;
             outline: none;
             color: var(--brand-blue);
-            min-width: 70px;
+            min-width: 65px;
             text-align: center;
         }
 
-        /* Results Box - Modern Gradient Dark */
+        /* --- MOBILE VIEW (Fixing overlap) --- */
+        @media (max-width: 480px) {
+            .field-group {
+                flex-wrap: wrap; /* Items niche drop honge agar jagah kam hogi */
+            }
+
+            input {
+                width: 100%; /* Input poori line le lega */
+                flex: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .unit-select {
+                flex: 1; /* Dropdowns ek hi line mein rahenge lekin input ke niche */
+                border-left: none;
+                border-right: 1px solid var(--border-color);
+                height: 42px;
+                font-size: 10.5px;
+            }
+
+            .unit-select:last-child {
+                border-right: none;
+            }
+        }
+
         .results-box {
             background: #1e293b;
             color: white;
-            padding: 30px;
-            border-radius: 0 0 16px 16px;
+            padding: 20px;
+            border-radius: 0 0 12px 12px;
         }
 
         .res-line {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 14px;
+            margin-bottom: 10px;
+            font-size: 13px;
             color: #94a3b8;
         }
 
-        .res-line span:last-child { 
-            color: white; 
-            font-weight: 600; 
-        }
+        .res-line span:last-child { color: white; font-weight: 600; }
 
         .total-line {
             border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 20px;
-            padding-top: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
             text-align: center;
         }
 
-        .total-label { 
-            font-size: 12px; 
-            text-transform: uppercase; 
-            color: #94a3b8; 
-            font-weight: 700; 
-            letter-spacing: 1px;
-        }
-
-        .total-value { 
-            font-size: 34px; 
-            font-weight: 800; 
-            color: var(--brand-green); 
-            margin-top: 8px; 
-            text-shadow: 0 2px 10px rgba(16, 185, 129, 0.2);
-        }
-
-        @media (max-width: 480px) {
-            .unit-select { min-width: 60px; font-size: 11px; }
-            .total-value { font-size: 28px; }
-        }
+        .total-label { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
+        .total-value { font-size: 30px; font-weight: 800; color: var(--brand-green); margin-top: 5px; }
     </style>
 </head>
 <body>
 
 <div class="omni-container">
     <div class="section-header">
-        <span style="color: var(--brand-blue); font-size: 12px;">⬤</span>
+        <span style="color: var(--brand-blue); font-size: 10px;">⬤</span>
         <h2>Regular Pay Details</h2>
     </div>
     <div class="section-content">
@@ -177,31 +180,15 @@
             <div class="field-group">
                 <input type="number" id="salary" placeholder="0">
                 <select id="curr" class="unit-select">
-                    <option value="USD" selected>USD</option>
+                    <option value="USD">USD</option>
                     <option value="GBP">GBP</option>
                     <option value="EUR">EUR</option>
-                    <option value="AUD">AUD</option>
-                    <option value="CAD">CAD</option>
-                    <option value="CHF">CHF</option>
-                    <option value="CNY">CNY</option>
-                    <option value="JPY">JPY</option>
-                    <option value="PLN">PLN</option>
-                    <option value="RON">RON</option>
-                    <option value="CZK">CZK</option>
-                    <option value="HKD">HKD</option>
-                    <option value="HUF">HUF</option>
                     <option value="PKR">PKR</option>
                     <option value="INR">INR</option>
-                    <option value="SAR">SAR</option>
-                    <option value="SEK">SEK</option>
-                    <option value="THB">THB</option>
-                    <option value="TRY">TRY</option>
-                    <option value="IRR">IRR</option>
+                    <option value="RON" selected>RON</option>
                 </select>
                 <select id="payFreq" class="unit-select">
                     <option value="hour">Hour</option>
-                    <option value="day">Day</option>
-                    <option value="week">Week</option>
                     <option value="month" selected>Month</option>
                 </select>
             </div>
@@ -211,9 +198,8 @@
             <label>Working Hours</label>
             <div class="field-group">
                 <input type="number" id="workVal" placeholder="40">
-                <select id="workUnit" class="unit-select"><option value="hours">Hrs</option><option value="days">Days</option></select>
+                <select id="workUnit" class="unit-select"><option value="hours">Hrs</option></select>
                 <select id="workFreq" class="unit-select">
-                    <option value="day">Day</option>
                     <option value="week" selected>Week</option>
                     <option value="month">Month</option>
                 </select>
@@ -222,7 +208,7 @@
     </div>
 
     <div class="section-header">
-        <span style="color: var(--brand-blue); font-size: 12px;">⬤</span>
+        <span style="color: var(--brand-blue); font-size: 10px;">⬤</span>
         <h2>Overtime Settings</h2>
     </div>
     <div class="section-content">
@@ -233,8 +219,6 @@
                 <select id="multPreset" class="unit-select">
                     <option value="1.5">1.5x</option>
                     <option value="2.0">2.0x</option>
-                    <option value="3.0">3.0x</option>
-                    <option value="custom">Custom</option>
                 </select>
             </div>
         </div>
@@ -243,9 +227,7 @@
             <label>Overtime Hours Worked</label>
             <div class="field-group">
                 <input type="number" id="otVal" placeholder="0">
-                <select class="unit-select" disabled><option>Hrs</option></select>
                 <select id="otFreq" class="unit-select">
-                    <option value="day">Day</option>
                     <option value="week">Week</option>
                     <option value="month" selected>Month</option>
                 </select>
@@ -254,14 +236,13 @@
     </div>
 
     <div class="results-box">
-        <div class="res-line"><span>Regular Hourly Rate</span><span><span class="curr-txt">USD</span> <span id="out-hourly">0.00</span></span></div>
-        <div class="res-line"><span>OT Hourly Rate</span><span><span class="curr-txt">USD</span> <span id="out-ot-rate">0.00</span></span></div>
-        <div class="res-line"><span>Total OT Pay</span><span><span class="curr-txt">USD</span> <span id="out-ot-pay">0.00</span></span></div>
-        <div class="res-line"><span>OT Percentage</span><span><span id="out-percent">0</span>%</span></div>
+        <div class="res-line"><span>Regular Hourly Rate</span><span><span class="curr-txt">RON</span> <span id="out-hourly">0.00</span></span></div>
+        <div class="res-line"><span>OT Hourly Rate</span><span><span class="curr-txt">RON</span> <span id="out-ot-rate">0.00</span></span></div>
+        <div class="res-line"><span>Total OT Pay</span><span><span class="curr-txt">RON</span> <span id="out-ot-pay">0.00</span></span></div>
         
         <div class="total-line">
             <span class="total-label">Total Monthly Gross Income</span>
-            <div class="total-value"><span class="curr-txt">USD</span> <span id="out-gross">0.00</span></div>
+            <div class="total-value"><span class="curr-txt">RON</span> <span id="out-gross">0.00</span></div>
         </div>
     </div>
 </div>
@@ -271,7 +252,6 @@
         const salary = parseFloat(document.getElementById('salary').value) || 0;
         const payFreq = document.getElementById('payFreq').value;
         const workVal = parseFloat(document.getElementById('workVal').value) || 0;
-        const workUnit = document.getElementById('workUnit').value;
         const workFreq = document.getElementById('workFreq').value;
         const otVal = parseFloat(document.getElementById('otVal').value) || 0;
         const otFreq = document.getElementById('otFreq').value;
@@ -280,49 +260,30 @@
 
         document.querySelectorAll('.curr-txt').forEach(el => el.innerText = currency);
 
-        let hoursPerDay = 8; 
-        let daysPerMonth = 22;
         let weeksPerMonth = 4.33;
-
-        let inputWorkHours = (workUnit === "days") ? workVal * hoursPerDay : workVal;
-        
-        let monthlyRegHrs;
-        if (workFreq === "day") monthlyRegHrs = inputWorkHours * daysPerMonth;
-        else if (workFreq === "week") monthlyRegHrs = inputWorkHours * weeksPerMonth;
-        else monthlyRegHrs = inputWorkHours;
-
-        let monthlyOTHrs;
-        if (otFreq === "day") monthlyOTHrs = otVal * daysPerMonth;
-        else if (otFreq === "week") monthlyOTHrs = otVal * weeksPerMonth;
-        else monthlyOTHrs = otVal;
+        let monthlyRegHrs = (workFreq === "week") ? workVal * weeksPerMonth : workVal;
+        let monthlyOTHrs = (otFreq === "week") ? otVal * weeksPerMonth : otVal;
 
         let hourly = 0;
         if (monthlyRegHrs > 0) {
             if(payFreq === "hour") hourly = salary;
-            else if(payFreq === "day") hourly = salary / (inputWorkHours / (workFreq === "day" ? 1 : (workFreq === "week" ? 5 : daysPerMonth)));
-            else if(payFreq === "week") hourly = salary / (monthlyRegHrs / weeksPerMonth);
-            else if(payFreq === "month") hourly = salary / monthlyRegHrs;
+            else hourly = salary / monthlyRegHrs;
         }
 
-        const regTotal = hourly * monthlyRegHrs;
         const otRate = hourly * mult;
         const otTotal = otRate * monthlyOTHrs;
-        const gross = regTotal + otTotal;
-        const percent = gross > 0 ? (otTotal / gross) * 100 : 0;
+        const regIncome = (payFreq === "month") ? salary : (hourly * monthlyRegHrs);
+        const gross = regIncome + otTotal;
 
-        document.getElementById('out-hourly').innerText = hourly.toLocaleString(undefined, {minimumFractionDigits: 2});
-        document.getElementById('out-ot-rate').innerText = otRate.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('out-hourly').innerText = hourly.toFixed(2);
+        document.getElementById('out-ot-rate').innerText = otRate.toFixed(2);
         document.getElementById('out-ot-pay').innerText = otTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
-        document.getElementById('out-percent').innerText = percent.toFixed(1);
         document.getElementById('out-gross').innerText = gross.toLocaleString(undefined, {minimumFractionDigits: 2});
     }
 
     document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', calc));
     document.getElementById('multPreset').addEventListener('change', (e) => {
-        if(e.target.value !== "custom") {
-            document.getElementById('multInput').value = e.target.value;
-            calc();
-        }
+        if(e.target.value !== "custom") { document.getElementById('multInput').value = e.target.value; calc(); }
     });
     window.onload = calc;
 </script>
