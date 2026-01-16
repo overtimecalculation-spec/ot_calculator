@@ -25,7 +25,7 @@
         }
 
         .omni-container {
-            background: transparent;
+            background: #ffffff;
             width: 100%;
             max-width: 550px;
             border-radius: 12px;
@@ -74,7 +74,7 @@
         /* Desktop Layout (Default) */
         .field-group {
             display: flex;
-            align-items: center;
+            align-items: stretch;
             border: 1.5px solid var(--border-color);
             border-radius: 8px;
             background: var(--field-bg);
@@ -101,23 +101,20 @@
 
         .unit-select {
             border: none;
+            border-left: 1px solid var(--border-color);
             background: #f8fafc;
-            padding: 0 12px;
+            padding: 0 10px;
             font-family: inherit;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            height: 52px;
             outline: none;
             color: var(--brand-blue);
-            min-width: 85px;
+            min-width: 80px;
             text-align: center;
-            white-space: nowrap;
         }
 
-        .currency-select { min-width: 60px; }
-
-        /* Results Box */
+        /* Result Panel */
         .results-box {
             background: #1e293b;
             color: white;
@@ -144,12 +141,27 @@
         .total-label { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
         .total-value { font-size: 30px; font-weight: 700; color: var(--brand-green); margin-top: 5px; }
 
-        /* Mobile Optimization */
+        /* --- Mobile Optimization Fix (image IMG_2461.png issues) --- */
         @media (max-width: 480px) {
-            .field-group { flex-wrap: wrap; }
-            input { width: 100%; flex: none; border-bottom: 1px solid var(--border-color); }
-            .unit-select { flex: 1; border-right: 1px solid var(--border-color); min-width: 0; font-size: 11px; }
-            .unit-select:last-child { border-right: none; }
+            .field-group {
+                flex-wrap: wrap;
+            }
+            input {
+                width: 100%;
+                flex: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .unit-select {
+                flex: 1;
+                border-left: none;
+                border-right: 1px solid var(--border-color);
+                height: 45px;
+                min-width: 0;
+                font-size: 11px;
+            }
+            .unit-select:last-child {
+                border-right: none;
+            }
         }
     </style>
 </head>
@@ -157,7 +169,7 @@
 
 <div class="omni-container">
     <div class="section-header">
-        <span style="color: var(--brand-blue); font-size: 10px;">▼</span>
+        <span style="color: var(--brand-blue); font-size: 12px;">⬤</span>
         <h2>Regular Pay Details</h2>
     </div>
     <div class="section-content">
@@ -165,7 +177,7 @@
             <label>Salary / Regular Rate</label>
             <div class="field-group">
                 <input type="number" id="salary" placeholder="0">
-                <select id="curr" class="unit-select currency-select">
+                <select id="curr" class="unit-select">
                     <option value="USD" selected>USD</option>
                     <option value="GBP">GBP</option>
                     <option value="EUR">EUR</option>
@@ -174,6 +186,7 @@
                     <option value="RON">RON</option>
                     <option value="CAD">CAD</option>
                     <option value="AUD">AUD</option>
+                    <option value="CHF">CHF</option>
                 </select>
                 <select id="payFreq" class="unit-select">
                     <option value="hour">Hour</option>
@@ -185,7 +198,7 @@
         </div>
 
         <div class="input-row">
-            <label>Working Hours</label>
+            <label>Regular Work Time</label>
             <div class="field-group">
                 <input type="number" id="workVal" placeholder="40">
                 <select id="workUnit" class="unit-select"><option value="hours">Hours</option><option value="days">Days</option></select>
@@ -200,7 +213,7 @@
         <div class="input-row">
             <label>Total Regular Pay (Calculated)</label>
             <div class="field-group" style="background: #f8fafc;">
-                <input type="text" id="res-reg-display" readonly value="0.00" style="color: var(--text-light);">
+                <input type="text" id="res-reg-display" readonly value="0.00">
                 <select class="unit-select curr-sync" disabled><option>USD</option></select>
                 <select class="unit-select" disabled><option>Month</option></select>
             </div>
@@ -208,7 +221,7 @@
     </div>
 
     <div class="section-header">
-        <span style="color: var(--brand-blue); font-size: 10px;">▼</span>
+        <span style="color: var(--brand-blue); font-size: 12px;">⬤</span>
         <h2>Overtime Details</h2>
     </div>
     <div class="section-content">
@@ -242,6 +255,7 @@
         <div class="res-line"><span>Base Hourly Rate</span><span><span class="curr-txt">USD</span> <span id="out-hourly">0.00</span></span></div>
         <div class="res-line"><span>OT Hourly Rate</span><span><span class="curr-txt">USD</span> <span id="out-ot-rate">0.00</span></span></div>
         <div class="res-line"><span>Total OT Pay</span><span><span class="curr-txt">USD</span> <span id="out-ot-pay">0.00</span></span></div>
+        <div class="res-line"><span>OT Percentage</span><span><span id="out-percent">0.0</span>%</span></div>
         
         <div class="total-line">
             <span class="total-label">Total Monthly Gross Income</span>
@@ -265,24 +279,24 @@
         document.querySelectorAll('.curr-txt').forEach(el => el.innerText = currency);
         document.querySelectorAll('.curr-sync option').forEach(el => el.text = currency);
 
-        let daysPerMonth = 22, weeksPerMonth = 4.33, hrsPerDay = 8;
-        let inputHrs = (workUnit === "days") ? workVal * hrsPerDay : workVal;
+        let dpm = 22, wpm = 4.33, hpd = 8;
+        let inputHrs = (workUnit === "days") ? workVal * hpd : workVal;
         
         let monthlyRegHrs;
-        if (workFreq === "day") monthlyRegHrs = inputHrs * daysPerMonth;
-        else if (workFreq === "week") monthlyRegHrs = inputHrs * weeksPerMonth;
+        if (workFreq === "day") monthlyRegHrs = inputHrs * dpm;
+        else if (workFreq === "week") monthlyRegHrs = inputHrs * wpm;
         else monthlyRegHrs = inputHrs;
 
         let monthlyOTHrs;
-        if (otFreq === "day") monthlyOTHrs = otVal * daysPerMonth;
-        else if (otFreq === "week") monthlyOTHrs = otVal * weeksPerMonth;
+        if (otFreq === "day") monthlyOTHrs = otVal * dpm;
+        else if (otFreq === "week") monthlyOTHrs = otVal * wpm;
         else monthlyOTHrs = otVal;
 
         let hourly = 0;
         if (monthlyRegHrs > 0) {
             if(payFreq === "hour") hourly = salary;
             else if(payFreq === "month") hourly = salary / monthlyRegHrs;
-            else if(payFreq === "week") hourly = salary / (monthlyRegHrs / weeksPerMonth);
+            else if(payFreq === "week") hourly = salary / (monthlyRegHrs / wpm);
             else if(payFreq === "day") hourly = salary / (inputHrs / (workFreq === "day" ? 1 : 5));
         }
 
@@ -290,11 +304,13 @@
         const otRate = hourly * mult;
         const otTotal = otRate * monthlyOTHrs;
         const gross = regTotal + otTotal;
+        const otPercent = gross > 0 ? (otTotal / gross) * 100 : 0;
 
         document.getElementById('res-reg-display').value = regTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('out-hourly').innerText = hourly.toFixed(2);
         document.getElementById('out-ot-rate').innerText = otRate.toFixed(2);
         document.getElementById('out-ot-pay').innerText = otTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
+        document.getElementById('out-percent').innerText = otPercent.toFixed(1);
         document.getElementById('out-gross').innerText = gross.toLocaleString(undefined, {minimumFractionDigits: 2});
     }
 
