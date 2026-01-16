@@ -13,7 +13,18 @@
             --border-color: #cbd5e1;
         }
 
-        body { font-family: 'Poppins', sans-serif; background-color: transparent; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        /* Sab kuch Poppins kar diya gaya hai */
+        * {
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+        body { 
+            background-color: transparent; 
+            margin: 0; 
+            padding: 10px; 
+            display: flex; 
+            justify-content: center; 
+        }
         
         .omni-container { 
             width: 100%; 
@@ -72,6 +83,7 @@
             min-height: 50px;
         }
 
+        /* Input text color fixed */
         input { 
             flex: 2; 
             padding: 12px; 
@@ -80,8 +92,10 @@
             font-size: 16px; 
             font-weight: 600; 
             min-width: 0; 
+            color: var(--text-main);
         }
         
+        /* Dropdown text color and font fixed */
         .unit-select {
             flex: 1;
             border: none;
@@ -90,12 +104,14 @@
             padding: 0 8px;
             font-size: 11px;
             font-weight: 700;
-            color: var(--brand-blue);
+            color: var(--brand-blue); /* Brand Blue Color */
             cursor: pointer;
             text-align: center;
             outline: none;
+            appearance: none; /* Mobile fix */
         }
 
+        /* Result Panel */
         .results-box { 
             background: #1e293b; 
             color: white; 
@@ -121,7 +137,12 @@
         }
 
         .total-label { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
-        .total-value { font-size: 32px; font-weight: 700; color: var(--brand-green); margin-top: 5px; }
+        .total-value { 
+            font-size: 32px; 
+            font-weight: 700; 
+            color: var(--brand-green); /* Brand Green Color */
+            margin-top: 5px; 
+        }
     </style>
 </head>
 <body>
