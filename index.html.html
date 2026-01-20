@@ -13,144 +13,81 @@
             --border-color: #cbd5e1;
         }
 
-        * {
-            font-family: 'Poppins', sans-serif !important;
-            box-sizing: border-box;
-        }
+        * { font-family: 'Poppins', sans-serif !important; box-sizing: border-box; }
 
-        body { 
-            background-color: transparent; 
-            margin: 0; 
-            padding: 10px; 
-            display: flex; 
-            justify-content: center; 
-        }
+        body { background-color: transparent; margin: 0; padding: 10px; display: flex; justify-content: center; }
         
         .omni-container { 
-            width: 100%; 
-            max-width: 550px; 
-            border-radius: 12px; 
-            border: 1px solid var(--border-color); 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
-            overflow: hidden; 
-            background: #ffffff; 
+            width: 100%; max-width: 550px; border-radius: 12px; border: 1px solid var(--border-color); 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; background: #ffffff; 
         }
 
         .section-header { 
-            background: #f8fafc; 
-            padding: 14px 20px; 
-            border-bottom: 1px solid var(--border-color); 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
+            background: #f8fafc; padding: 14px 20px; border-bottom: 1px solid var(--border-color); 
+            display: flex; align-items: center; gap: 10px; 
         }
 
         .section-header h2 { 
-            font-size: 13px; 
-            margin: 0; 
-            color: var(--brand-blue); 
-            text-transform: uppercase; 
-            font-weight: 700; 
-            letter-spacing: 0.5px;
+            font-size: 13px; margin: 0; color: var(--brand-blue); text-transform: uppercase; 
+            font-weight: 700; letter-spacing: 0.5px;
         }
 
-        .section-content { 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 18px; 
-        }
+        .section-content { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
 
-        .input-row { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 6px; 
-        }
+        .input-row { display: flex; flex-direction: column; gap: 6px; }
 
-        .input-row label { 
-            font-size: 13px; 
-            color: var(--text-main); 
-            font-weight: 600; 
-        }
+        .input-row label { font-size: 13px; color: var(--text-main); font-weight: 600; }
 
         .field-group {
-            display: flex;
-            align-items: stretch;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            background: #fff;
-            min-height: 50px;
+            display: flex; align-items: stretch; border: 2px solid var(--border-color);
+            border-radius: 8px; overflow: hidden; background: #fff; min-height: 50px;
         }
 
-        input { 
-            flex: 2; 
-            padding: 12px; 
-            border: none; 
-            outline: none; 
-            font-size: 16px; 
-            font-weight: 600; 
-            min-width: 0; 
-            color: var(--text-main);
-        }
+        input { flex: 2; padding: 12px; border: none; outline: none; font-size: 16px; font-weight: 600; color: var(--text-main); }
         
-        /* Dropdown Styling with Arrow */
         .unit-select {
-            flex: 1;
-            border: none;
-            border-left: 1px solid var(--border-color);
-            background: #f1f5f9;
-            padding: 0 25px 0 10px; /* Right padding increased for arrow */
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--brand-blue);
-            cursor: pointer;
-            outline: none;
-            appearance: none; 
-            /* Custom Arrow Icon */
+            flex: 1; border: none; border-left: 1px solid var(--border-color); background: #f1f5f9;
+            padding: 0 25px 0 10px; font-size: 11px; font-weight: 700; color: var(--brand-blue);
+            cursor: pointer; outline: none; appearance: none; 
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%230056b3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 8px center;
-            background-size: 12px;
+            background-repeat: no-repeat; background-position: right 8px center; background-size: 12px;
         }
 
-        /* Result Panel */
-        .results-box { 
-            background: #1e293b; 
-            color: white; 
-            padding: 25px; 
-            border-radius: 0 0 12px 12px; 
-        }
+        .results-box { background: #1e293b; color: white; padding: 25px; border-radius: 0 0 12px 12px; }
 
-        .res-line { 
-            display: flex; 
-            justify-content: space-between; 
-            margin-bottom: 10px; 
-            font-size: 13px; 
-            color: #94a3b8; 
-        }
+        .res-line { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: #94a3b8; }
 
         .res-line span:last-child { color: white; font-weight: 600; }
 
-        .total-line { 
-            border-top: 1px solid #334155; 
-            margin-top: 15px; 
-            padding-top: 15px; 
-            text-align: center; 
-        }
+        .total-line { border-top: 1px solid #334155; margin-top: 15px; padding-top: 15px; text-align: center; }
 
         .total-label { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
-        .total-value { 
-            font-size: 32px; 
-            font-weight: 700; 
-            color: var(--brand-green); 
-            margin-top: 5px; 
+        .total-value { font-size: 32px; font-weight: 700; color: var(--brand-green); margin-top: 5px; }
+
+        /* Action Buttons Grid */
+        .action-grid { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; 
+        }
+
+        .btn-action {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 10px; border-radius: 6px; border: 1px solid #475569;
+            background: #334155; color: white; font-size: 12px; font-weight: 600;
+            cursor: pointer; transition: 0.2s; text-decoration: none;
+        }
+
+        .btn-action:hover { background: #475569; border-color: #94a3b8; }
+        .btn-reset { background: #ef4444; border-color: #ef4444; } /* Red for reset */
+        .btn-reset:hover { background: #dc2626; }
+
+        @media (max-width: 400px) {
+            .action-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="omni-container">
+<div class="omni-container" id="calculator-content">
     <div class="section-header"><h2>Regular Pay Details</h2></div>
     <div class="section-content">
         <div class="input-row">
@@ -196,7 +133,7 @@
             <div class="field-group">
                 <input type="number" id="multInput" value="1.5" step="0.1">
                 <select id="multPreset" class="unit-select">
-                    <option value="1.5">1.5x Rate</option><option value="2.0">2.0x Rate</option><option value="3.0">3.0x Rate</option>
+                    <option value="1.5">1.5x Rate</option><option value="2.0">2.0x Rate</option><option value="3.0">3.0x Rate</option><option value="custom">Custom</option>
                 </select>
             </div>
         </div>
@@ -220,6 +157,13 @@
         <div class="total-line">
             <span class="total-label">Total Monthly Gross Income</span>
             <div class="total-value"><span class="curr-txt">USD</span> <span id="out-gross">0.00</span></div>
+        </div>
+
+        <div class="action-grid">
+            <button onclick="copyResult()" class="btn-action">Copy</button>
+            <button onclick="shareResult()" class="btn-action">Share</button>
+            <button onclick="window.print()" class="btn-action">Download (PDF)</button>
+            <button onclick="resetCalc()" class="btn-action btn-reset">Reset</button>
         </div>
     </div>
 </div>
@@ -274,9 +218,33 @@
         document.getElementById('out-gross').innerText = gross.toLocaleString(undefined, {minimumFractionDigits: 2});
     }
 
+    function resetCalc() {
+        document.getElementById('salary').value = '';
+        document.getElementById('otVal').value = '';
+        calc();
+    }
+
+    function copyResult() {
+        const gross = document.getElementById('out-gross').innerText;
+        const curr = document.getElementById('curr').value;
+        const text = `My Estimated Monthly Gross Income is ${curr} ${gross}. Calculated via OT Calculator.`;
+        navigator.clipboard.writeText(text);
+        alert("Result Copied to Clipboard!");
+    }
+
+    function shareResult() {
+        const text = `Check out my Overtime Calculation: ${document.getElementById('out-gross').innerText} ${document.getElementById('curr').value}`;
+        if (navigator.share) {
+            navigator.share({ title: 'OT Calculation', text: text, url: window.location.href });
+        } else {
+            alert("Sharing not supported on this browser. Copy link instead.");
+        }
+    }
+
     document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', calc));
     document.getElementById('multPreset').addEventListener('change', (e) => {
-        document.getElementById('multInput').value = e.target.value; calc();
+        if(e.target.value !== "custom") document.getElementById('multInput').value = e.target.value;
+        calc();
     });
     window.onload = calc;
 </script>
