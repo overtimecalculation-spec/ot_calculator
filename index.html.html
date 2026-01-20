@@ -64,40 +64,36 @@
         .total-label { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
         .total-value { font-size: 32px; font-weight: 700; color: var(--brand-green); margin-top: 5px; }
 
-        /* Actions Row - Fixed for Mobile */
+        /* --- Actions Row Fixed --- */
         .btn-row { 
-            display: flex; 
-            justify-content: space-between; 
-            gap: 6px; 
-            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Hamesha 3 columns rahenge */
+            gap: 10px; 
+            margin-top: 25px;
             width: 100%;
         }
 
         .btn-action {
-            flex: 1; 
-            padding: 10px 2px; 
+            width: 100%;
+            padding: 12px 2px; 
             border-radius: 6px; 
             border: 1px solid #475569;
             background: #334155; 
             color: white; 
-            font-size: 11px; /* Default size */
+            font-size: 12px; 
             font-weight: 600;
             cursor: pointer; 
             transition: 0.2s; 
             text-align: center;
-            white-space: nowrap; /* Text line change nahi karega */
         }
 
         .btn-action:hover { background: #475569; border-color: #94a3b8; }
         .btn-reset { border-color: #ef4444; color: #fca5a5; }
 
-        /* Mobile specific font shrink */
         @media (max-width: 480px) {
-            .btn-action {
-                font-size: 10px; /* Choti screen par font thora aur chota */
-                padding: 10px 1px;
-            }
-            .results-box { padding: 20px 15px; } /* Mobile padding kam ki */
+            .btn-action { font-size: 10px; padding: 10px 1px; }
+            .btn-row { gap: 6px; }
+            .results-box { padding: 20px 12px; }
         }
     </style>
 </head>
