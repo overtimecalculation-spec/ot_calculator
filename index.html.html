@@ -15,11 +15,12 @@
 
         * { font-family: 'Poppins', sans-serif !important; box-sizing: border-box; }
 
-        body { background-color: transparent; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        body { background-color: transparent; margin: 0; padding: 15px; display: flex; justify-content: center; }
         
         .omni-container { 
             width: 100%; max-width: 550px; border-radius: 12px; border: 1px solid var(--border-color); 
             box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; background: #ffffff; 
+            margin-bottom: 30px; /* Is se mobile screen ke niche se jagah ban jayegi */
         }
 
         .section-header { 
@@ -35,7 +36,6 @@
         .section-content { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
 
         .input-row { display: flex; flex-direction: column; gap: 6px; }
-
         .input-row label { font-size: 13px; color: var(--text-main); font-weight: 600; }
 
         .field-group {
@@ -53,21 +53,20 @@
             background-repeat: no-repeat; background-position: right 8px center; background-size: 12px;
         }
 
-        .results-box { background: #1e293b; color: white; padding: 25px; border-radius: 0 0 12px 12px; }
+        /* Yahan padding-bottom ko 35px kiya hai taaki buttons upar nazar ayen */
+        .results-box { background: #1e293b; color: white; padding: 25px 25px 35px 25px; border-radius: 0 0 12px 12px; }
 
         .res-line { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: #94a3b8; }
-
         .res-line span:last-child { color: white; font-weight: 600; }
 
         .total-line { border-top: 1px solid #334155; margin-top: 15px; padding-top: 15px; text-align: center; }
-
         .total-label { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
         .total-value { font-size: 32px; font-weight: 700; color: var(--brand-green); margin-top: 5px; }
 
-        /* --- Actions Row Fixed --- */
+        /* Buttons Row: Grid use kiya hai taaki alignment perfect rahy */
         .btn-row { 
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Hamesha 3 columns rahenge */
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px; 
             margin-top: 25px;
             width: 100%;
@@ -80,20 +79,17 @@
             border: 1px solid #475569;
             background: #334155; 
             color: white; 
-            font-size: 12px; 
+            font-size: 11px; 
             font-weight: 600;
             cursor: pointer; 
-            transition: 0.2s; 
             text-align: center;
         }
 
-        .btn-action:hover { background: #475569; border-color: #94a3b8; }
         .btn-reset { border-color: #ef4444; color: #fca5a5; }
 
         @media (max-width: 480px) {
-            .btn-action { font-size: 10px; padding: 10px 1px; }
-            .btn-row { gap: 6px; }
-            .results-box { padding: 20px 12px; }
+            .btn-action { font-size: 10px; }
+            .results-box { padding: 20px 15px 30px 15px; } /* Mobile par bhi bottom spacing fix */
         }
     </style>
 </head>
