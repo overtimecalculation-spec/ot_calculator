@@ -64,40 +64,24 @@
         .total-label { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
         .total-value { font-size: 32px; font-weight: 700; color: var(--brand-green); margin-top: 5px; }
 
-        /* --- Updated Final Action Row --- */
+        /* Actions Row Fixed */
         .btn-row { 
-            display: flex; 
-            justify-content: space-between; /* Equal spacing */
-            gap: 10px; 
-            margin-top: 25px;
-            width: 100%;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 25px; width: 100%;
         }
 
         .btn-action {
-            flex: 1; 
-            padding: 12px 5px; 
-            border-radius: 6px; 
-            border: 1px solid #475569;
-            background: #334155; 
-            color: white; 
-            font-size: 12px; 
-            font-weight: 600;
-            cursor: pointer; 
-            transition: 0.2s; 
-            text-align: center;
-            white-space: nowrap;
+            flex: 1; min-width: 120px; padding: 12px 10px; border-radius: 6px; 
+            border: 1px solid #475569; background: #334155; color: white; 
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; text-align: center;
         }
 
         .btn-action:hover { background: #475569; border-color: #94a3b8; }
-        
-        /* Reset button highlighted slightly */
         .btn-reset { border-color: #ef4444; color: #ff8a8a; }
 
-        /* Responsive Fix for small devices */
-        @media (max-width: 400px) {
-            .btn-action { font-size: 10px; padding: 10px 2px; }
-            .btn-row { gap: 6px; }
-            .results-box { padding: 20px 12px; }
+        @media (max-width: 480px) {
+            .btn-action { flex: 1 1 45%; font-size: 12px; min-width: 100px; }
+            .btn-row { gap: 8px; }
+            .results-box { padding: 20px 15px; }
         }
     </style>
 </head>
@@ -120,7 +104,6 @@
                 </select>
             </div>
         </div>
-
         <div class="input-row">
             <label>Regular Work Duration</label>
             <div class="field-group">
@@ -131,7 +114,6 @@
                 </select>
             </div>
         </div>
-
         <div class="input-row">
             <label>Total Regular Pay</label>
             <div class="field-group" style="background: #f8fafc;">
@@ -244,7 +226,7 @@
         if (navigator.share) {
             navigator.share({ title: 'OT Calculation', text: text, url: window.location.href });
         } else {
-            alert("Sharing not supported in this browser. Link copied.");
+            alert("Link copied: " + window.location.href);
         }
     }
 
