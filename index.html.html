@@ -1,517 +1,237 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>OT Calculator Professional</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
-
         :root {
-
             --brand-blue: #0056b3;
-
             --brand-green: #10b981;
-
             --text-main: #1e293b;
-
             --border-color: #cbd5e1;
-
         }
-
-
 
         * { font-family: 'Poppins', sans-serif !important; box-sizing: border-box; }
 
-
-
-        body { background-color: transparent; margin: 0; padding: 10px; display: flex; justify-content: center; }
-
+        body { background-color: transparent; margin: 0; padding: 15px; display: flex; justify-content: center; }
         
-
-        .omni-container { 
-
+        .ot-calc-container { 
             width: 100%; max-width: 550px; border-radius: 12px; border: 1px solid var(--border-color); 
-
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; background: #ffffff; 
-
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; background: #ffffff;
+            margin-bottom: 40px; 
         }
-
-
 
         .section-header { 
-
             background: #f8fafc; padding: 14px 20px; border-bottom: 1px solid var(--border-color); 
-
-            display: flex; align-items: center; gap: 10px; 
-
         }
-
-
 
         .section-header h2 { 
-
             font-size: 13px; margin: 0; color: var(--brand-blue); text-transform: uppercase; 
-
             font-weight: 700; letter-spacing: 0.5px;
-
         }
-
-
 
         .section-content { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
 
-
-
         .input-row { display: flex; flex-direction: column; gap: 6px; }
-
-
-
         .input-row label { font-size: 13px; color: var(--text-main); font-weight: 600; }
 
-
-
+        /* Dropdown aur Input ko sahi line mein lane ke liye fix */
         .field-group {
-
             display: flex; align-items: stretch; border: 2px solid var(--border-color);
-
             border-radius: 8px; overflow: hidden; background: #fff; min-height: 50px;
-
         }
 
-
-
-        input { flex: 2; padding: 12px; border: none; outline: none; font-size: 16px; font-weight: 600; color: var(--text-main); }
-
+        input { flex: 1.5; min-width: 0; padding: 12px; border: none; outline: none; font-size: 16px; font-weight: 600; color: var(--text-main); }
         
-
+        /* Dropdown styling jo mobile par bhi show hogi */
         .unit-select {
-
             flex: 1; border: none; border-left: 1px solid var(--border-color); background: #f1f5f9;
-
             padding: 0 25px 0 10px; font-size: 11px; font-weight: 700; color: var(--brand-blue);
-
             cursor: pointer; outline: none; appearance: none; 
-
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%230056b3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
-
             background-repeat: no-repeat; background-position: right 8px center; background-size: 12px;
-
+            min-width: 80px; /* Mobile par dropdown gayab na ho */
         }
 
-
-
-        .results-box { background: #1e293b; color: white; padding: 25px; border-radius: 0 0 12px 12px; }
-
-
+        .results-box { background: #1e293b; color: white; padding: 25px 25px 45px 25px; border-radius: 0 0 12px 12px; }
 
         .res-line { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: #94a3b8; }
-
-
-
         .res-line span:last-child { color: white; font-weight: 600; }
 
-
-
         .total-line { border-top: 1px solid #334155; margin-top: 15px; padding-top: 15px; text-align: center; }
-
-
-
         .total-label { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
-
         .total-value { font-size: 32px; font-weight: 700; color: var(--brand-green); margin-top: 5px; }
 
-
-
-        /* Actions Row - Fixed for Mobile */
-
         .btn-row { 
-
-            display: flex; 
-
-            justify-content: space-between; 
-
-            gap: 6px; 
-
-            margin-top: 20px;
-
-            width: 100%;
-
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 25px; width: 100%;
         }
-
-
 
         .btn-action {
-
-            flex: 1; 
-
-            padding: 10px 2px; 
-
-            border-radius: 6px; 
-
-            border: 1px solid #475569;
-
-            background: #334155; 
-
-            color: white; 
-
-            font-size: 11px; /* Default size */
-
-            font-weight: 600;
-
-            cursor: pointer; 
-
-            transition: 0.2s; 
-
-            text-align: center;
-
-            white-space: nowrap; /* Text line change nahi karega */
-
+            width: 100%; padding: 12px 2px; border-radius: 6px; 
+            border: 1px solid #475569; background: #334155; color: white; 
+            font-size: 11px; font-weight: 600; cursor: pointer; text-align: center;
         }
-
-
-
-        .btn-action:hover { background: #475569; border-color: #94a3b8; }
 
         .btn-reset { border-color: #ef4444; color: #fca5a5; }
 
-
-
-        /* Mobile specific font shrink */
-
         @media (max-width: 480px) {
-
-            .btn-action {
-
-                font-size: 10px; /* Choti screen par font thora aur chota */
-
-                padding: 10px 1px;
-
-            }
-
-            .results-box { padding: 20px 15px; } /* Mobile padding kam ki */
-
+            .btn-action { font-size: 10px; padding: 10px 1px; }
+            .results-box { padding: 20px 15px 40px 15px; }
+            input { flex: 1.2; } /* Mobile par input thora chota dropdown ke liye jagah banaye */
+            .unit-select { min-width: 70px; font-size: 10px; }
         }
-
     </style>
-
 </head>
-
 <body>
 
-
-
-<div class="omni-container">
-
+<div class="ot-calc-container">
     <div class="section-header"><h2>Regular Pay Details</h2></div>
-
     <div class="section-content">
-
         <div class="input-row">
-
             <label>Regular Pay</label>
-
             <div class="field-group">
-
                 <input type="number" id="salary" placeholder="0">
-
                 <select id="curr" class="unit-select">
-
                     <option value="USD" selected>USD</option><option value="GBP">GBP</option><option value="EUR">EUR</option>
-
                     <option value="PKR">PKR</option><option value="INR">INR</option><option value="RON">RON</option>
-
-                    <option value="CAD">CAD</option><option value="AUD">AUD</option><option value="CHF">CHF</option>
-
+                    <option value="CAD">CAD</option><option value="AUD">AUD</option>
                 </select>
-
                 <select id="payFreq" class="unit-select">
-
                     <option value="hour">Hour</option><option value="day">Day</option><option value="week">Week</option><option value="month" selected>Month</option>
-
                 </select>
-
             </div>
-
         </div>
 
-
-
         <div class="input-row">
-
             <label>Regular Work Duration</label>
-
             <div class="field-group">
-
                 <input type="number" id="workVal" placeholder="40">
-
                 <select id="workUnit" class="unit-select"><option value="hours">Hours</option><option value="days">Days</option></select>
-
                 <select id="workFreq" class="unit-select">
-
                     <option value="day">Day</option><option value="week" selected>Week</option><option value="month">Month</option>
-
                 </select>
-
             </div>
-
         </div>
-
-
 
         <div class="input-row">
-
             <label>Total Regular Pay</label>
-
             <div class="field-group" style="background: #f8fafc;">
-
                 <input type="text" id="res-reg-display" readonly value="0.00">
-
                 <select class="unit-select curr-sync" disabled style="background-image: none; padding-right: 10px;"><option>USD</option></select>
-
                 <select class="unit-select" disabled style="background-image: none; padding-right: 10px;"><option>Month</option></select>
-
             </div>
-
         </div>
-
     </div>
-
-
 
     <div class="section-header"><h2>Overtime Details</h2></div>
-
     <div class="section-content">
-
         <div class="input-row">
-
             <label>OT Multiplier</label>
-
             <div class="field-group">
-
                 <input type="number" id="multInput" value="1.5" step="0.1">
-
                 <select id="multPreset" class="unit-select">
-
                     <option value="1.5">1.5x Rate</option><option value="2.0">2.0x Rate</option><option value="3.0">3.0x Rate</option><option value="custom">Custom</option>
-
                 </select>
-
             </div>
-
         </div>
-
         <div class="input-row">
-
             <label>Overtime Hours Worked</label>
-
             <div class="field-group">
-
                 <input type="number" id="otVal" placeholder="0">
-
                 <select class="unit-select" disabled style="background-image: none; padding-right: 10px;"><option>Hours</option></select>
-
                 <select id="otFreq" class="unit-select">
-
                     <option value="day">Day</option><option value="week">Week</option><option value="month" selected>Month</option>
-
                 </select>
-
             </div>
-
         </div>
-
     </div>
-
-
 
     <div class="results-box">
-
         <div class="res-line"><span>Regular Hourly Rate</span><span><span class="curr-txt">USD</span> <span id="out-hourly">0.00</span></span></div>
-
         <div class="res-line"><span>OT Hourly Rate</span><span><span class="curr-txt">USD</span> <span id="out-ot-rate">0.00</span></span></div>
-
         <div class="res-line"><span>Total OT Pay</span><span><span class="curr-txt">USD</span> <span id="out-ot-pay">0.00</span></span></div>
-
         <div class="res-line"><span>OT Percentage</span><span><span id="out-percent">0</span>%</span></div>
-
         <div class="total-line">
-
             <span class="total-label">Total Monthly Gross Income</span>
-
             <div class="total-value"><span class="curr-txt">USD</span> <span id="out-gross">0.00</span></div>
-
         </div>
-
-
 
         <div class="btn-row">
-
             <button onclick="resetCalc()" class="btn-action btn-reset">Reset</button>
-
             <button onclick="window.print()" class="btn-action">Download</button>
-
             <button onclick="shareResult()" class="btn-action">Share</button>
-
         </div>
-
     </div>
-
 </div>
 
-
-
 <script>
-
     function calc() {
-
         const salary = parseFloat(document.getElementById('salary').value) || 0;
-
         const payFreq = document.getElementById('payFreq').value;
-
         const workVal = parseFloat(document.getElementById('workVal').value) || 0;
-
         const workUnit = document.getElementById('workUnit').value;
-
         const workFreq = document.getElementById('workFreq').value;
-
         const otVal = parseFloat(document.getElementById('otVal').value) || 0;
-
         const otFreq = document.getElementById('otFreq').value;
-
         const mult = parseFloat(document.getElementById('multInput').value) || 1.5;
-
         const currency = document.getElementById('curr').value;
 
-
-
         document.querySelectorAll('.curr-txt').forEach(el => el.innerText = currency);
-
         document.querySelectorAll('.curr-sync option').forEach(el => el.text = currency);
 
-
-
         let dpm = 22, wpm = 4.33, hpd = 8;
-
         let inputHrs = (workUnit === "days") ? workVal * hpd : workVal;
-
         
-
         let monthlyRegHrs;
-
         if (workFreq === "day") monthlyRegHrs = inputHrs * dpm;
-
         else if (workFreq === "week") monthlyRegHrs = inputHrs * wpm;
-
         else monthlyRegHrs = inputHrs;
 
-
-
         let monthlyOTHrs;
-
         if (otFreq === "day") monthlyOTHrs = otVal * dpm;
-
         else if (otFreq === "week") monthlyOTHrs = otVal * wpm;
-
         else monthlyOTHrs = otVal;
 
-
-
         let hourly = 0;
-
         if (monthlyRegHrs > 0) {
-
             if(payFreq === "hour") hourly = salary;
-
             else if(payFreq === "month") hourly = salary / monthlyRegHrs;
-
             else if(payFreq === "week") hourly = salary / (monthlyRegHrs / wpm);
-
             else if(payFreq === "day") hourly = salary / (inputHrs / (workFreq === "day" ? 1 : 5));
-
         }
-
-
 
         const regTotal = hourly * monthlyRegHrs;
-
         const otRate = hourly * mult;
-
         const otTotal = otRate * monthlyOTHrs;
-
         const gross = regTotal + otTotal;
-
         const percent = gross > 0 ? (otTotal / gross) * 100 : 0;
 
-
-
         document.getElementById('res-reg-display').value = regTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
-
         document.getElementById('out-hourly').innerText = hourly.toFixed(2);
-
         document.getElementById('out-ot-rate').innerText = otRate.toFixed(2);
-
         document.getElementById('out-ot-pay').innerText = otTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
-
         document.getElementById('out-percent').innerText = percent.toFixed(1);
-
         document.getElementById('out-gross').innerText = gross.toLocaleString(undefined, {minimumFractionDigits: 2});
-
     }
-
-
 
     function resetCalc() {
-
         document.getElementById('salary').value = '';
-
         document.getElementById('otVal').value = '';
-
         calc();
-
     }
-
-
 
     function shareResult() {
-
-        const text = `My Estimated Monthly Gross Income is ${document.getElementById('curr').value} ${document.getElementById('out-gross').innerText}`;
-
-        if (navigator.share) {
-
-            navigator.share({ title: 'OT Calculation', text: text, url: window.location.href });
-
-        } else {
-
-            alert("Link copied: " + window.location.href);
-
-        }
-
+        alert("Result Link Copied!");
     }
 
-
-
     document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', calc));
-
     document.getElementById('multPreset').addEventListener('change', (e) => {
-
         if(e.target.value !== "custom") document.getElementById('multInput').value = e.target.value;
-
         calc();
-
     });
-
     window.onload = calc;
-
 </script>
-
 </body>
-
 </html>
