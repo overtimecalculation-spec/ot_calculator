@@ -15,16 +15,17 @@
 
         * { font-family: 'Poppins', sans-serif !important; box-sizing: border-box; }
 
-        body { background-color: transparent; margin: 0; padding: 15px; display: flex; justify-content: center; }
+        body { background-color: transparent; margin: 0; padding: 10px; display: flex; justify-content: center; }
         
         .ot-calc-container { 
             width: 100%; max-width: 550px; border-radius: 12px; border: 1px solid var(--border-color); 
             box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; background: #ffffff;
-            margin-bottom: 40px; 
+            margin-bottom: 30px;
         }
 
         .section-header { 
             background: #f8fafc; padding: 14px 20px; border-bottom: 1px solid var(--border-color); 
+            display: flex; align-items: center; gap: 10px; 
         }
 
         .section-header h2 { 
@@ -37,25 +38,43 @@
         .input-row { display: flex; flex-direction: column; gap: 6px; }
         .input-row label { font-size: 13px; color: var(--text-main); font-weight: 600; }
 
-        /* Dropdown aur Input ko sahi line mein lane ke liye fix */
         .field-group {
             display: flex; align-items: stretch; border: 2px solid var(--border-color);
             border-radius: 8px; overflow: hidden; background: #fff; min-height: 50px;
         }
 
-        input { flex: 1.5; min-width: 0; padding: 12px; border: none; outline: none; font-size: 16px; font-weight: 600; color: var(--text-main); }
+        /* Number input ko zyada jagah di hai */
+        input { 
+            flex: 2.5; 
+            min-width: 0; 
+            padding: 12px; 
+            border: none; 
+            outline: none; 
+            font-size: 16px; 
+            font-weight: 600; 
+            color: var(--text-main); 
+        }
         
-        /* Dropdown styling jo mobile par bhi show hogi */
+        /* Dropdowns ki default styling */
         .unit-select {
-            flex: 1; border: none; border-left: 1px solid var(--border-color); background: #f1f5f9;
-            padding: 0 25px 0 10px; font-size: 11px; font-weight: 700; color: var(--brand-blue);
-            cursor: pointer; outline: none; appearance: none; 
+            flex: 1; 
+            border: none; 
+            border-left: 1px solid var(--border-color); 
+            background: #f1f5f9;
+            padding: 0 25px 0 10px; 
+            font-size: 11px; 
+            font-weight: 700; 
+            color: var(--brand-blue);
+            cursor: pointer; 
+            outline: none; 
+            appearance: none; 
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%230056b3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 8px center; background-size: 12px;
-            min-width: 80px; /* Mobile par dropdown gayab na ho */
+            background-repeat: no-repeat; 
+            background-position: right 8px center; 
+            background-size: 12px;
         }
 
-        .results-box { background: #1e293b; color: white; padding: 25px 25px 45px 25px; border-radius: 0 0 12px 12px; }
+        .results-box { background: #1e293b; color: white; padding: 25px 25px 40px 25px; border-radius: 0 0 12px 12px; }
 
         .res-line { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: #94a3b8; }
         .res-line span:last-child { color: white; font-weight: 600; }
@@ -65,7 +84,11 @@
         .total-value { font-size: 32px; font-weight: 700; color: var(--brand-green); margin-top: 5px; }
 
         .btn-row { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 25px; width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px; 
+            margin-top: 25px;
+            width: 100%;
         }
 
         .btn-action {
@@ -76,11 +99,21 @@
 
         .btn-reset { border-color: #ef4444; color: #fca5a5; }
 
+        /* Mobile specific adjustments */
         @media (max-width: 480px) {
             .btn-action { font-size: 10px; padding: 10px 1px; }
-            .results-box { padding: 20px 15px 40px 15px; }
-            input { flex: 1.2; } /* Mobile par input thora chota dropdown ke liye jagah banaye */
-            .unit-select { min-width: 70px; font-size: 10px; }
+            .results-box { padding: 20px 15px 35px 15px; }
+            
+            /* Input ko mobile par mazeed bara kiya */
+            input { flex: 3; } 
+            
+            /* Dropdowns ko mobile par minor chota kiya */
+            .unit-select { 
+                flex: 1.2; 
+                font-size: 10px; 
+                padding: 0 18px 0 6px;
+                background-position: right 4px center;
+            }
         }
     </style>
 </head>
@@ -223,7 +256,12 @@
     }
 
     function shareResult() {
-        alert("Result Link Copied!");
+        const text = `My Estimated Monthly Gross Income is ${document.getElementById('curr').value} ${document.getElementById('out-gross').innerText}`;
+        if (navigator.share) {
+            navigator.share({ title: 'OT Calculation', text: text, url: window.location.href });
+        } else {
+            alert("Link copied: " + window.location.href);
+        }
     }
 
     document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', calc));
